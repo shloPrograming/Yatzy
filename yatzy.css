@@ -4,6 +4,9 @@
     margin: 30px auto;
     padding: 10px;
     background-color: whitesmoke;
+
+    
+
 }
 #scoreBoard {
     border: 1px solid red;
@@ -11,4 +14,8 @@
     margin: 30px auto;
     padding: 10px;
     background-color: whitesmoke;
+
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 33% 33% 33%;
 }
