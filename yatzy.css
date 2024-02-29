@@ -1,0 +1,14 @@
+#diceContainer {
+    border: 1px solid red;
+    width: 50%;
+    margin: 30px auto;
+    padding: 10px;
+    background-color: whitesmoke;
+}
+#scoreBoard {
+    border: 1px solid red;
+    width: 50%;
+    margin: 30px auto;
+    padding: 10px;
+    background-color: whitesmoke;
+}
