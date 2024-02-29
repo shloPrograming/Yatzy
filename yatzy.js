@@ -65,7 +65,7 @@ function updateDice(){
 
 
 
-let testArray = [6,4,2,5,3];
+let testArray = [5,5,6,6,3];
 let sumArray = [0,0,0,0,0,0];
 
 /*Fill 1-s, 2-s, 3-s, 4-s, 5-s, 6-s fields*/
@@ -123,22 +123,82 @@ function fillOnePair(){
 
 /*Two pairs*/
 function fillTwoPairs(){
+  let kopi = [...testArray];
+  kopi.sort();
+  let result = 0;
 
+  if (kopi[0] === kopi[1] && kopi[2] === kopi[3]){
+    result = 2 * kopi[0] + 2 * kopi[2];
+  }
+  else if (kopi[1] === kopi[2] && kopi[3] === kopi[4]){
+    result = 2 * kopi[1] + 2 * kopi[3];
+  }
+  else if (kopi[0] === kopi[1] && kopi[3] === kopi[4]){
+    result = 2 * kopi[0] + 2 * kopi[3];
+  }
+
+  document.getElementById("Two pairs").value = result;
 }
 
 /*Three same*/
 function fillThreeSame(){
+  let kopi = [...testArray];
+  kopi.sort();
+  let result = 0;
 
+  if (kopi[0] === kopi[1] && kopi[1] === kopi[2]){
+    result = 3 * kopi[0];
+  }
+  else if (kopi[1] === kopi[2] && kopi[2] === kopi[3]){
+    result = 3 * kopi[1];
+  }
+  else if (kopi[2] === kopi[3] && kopi[3] === kopi[4]){
+    result = 3 * kopi[2];
+  }
+  document.getElementById("Three same").value = result;
 }
 
 /*Four same*/
 function fillFourSame(){
+  let kopi = [...testArray];
+  kopi.sort();
+  let result = 0;
 
+  if (kopi[0] === kopi[1]){
+    if (kopi[1] === kopi[2]){
+      if (kopi[2] === kopi[3]){
+        result = 4 * kopi[0];
+      }
+    }
+  }
+  else if (kopi[1] === kopi[2]){
+    if (kopi[2] === kopi[3]){
+      if (kopi[3] === kopi[4]){
+        result = 4 * kopi[1];
+      }
+    }
+  }
+  document.getElementById("Four same").value = result;
 }
 
 /*Full house*/
 function fillFullHouse(){
+  let kopi = [...testArray];
+  kopi.sort();
+  let result = 0;
 
+  if (kopi[0] === kopi[1] && kopi[1] === kopi[2]){
+    if (kopi[3] === kopi[4]){
+      result = 3 * kopi[0] + 2 * kopi[4];
+    }
+  }
+  else if (kopi[2] === kopi[3] && kopi[3] === kopi[4]){
+    if (kopi[0] === kopi[1]){
+      result = 3 * kopi[4] + 2 * kopi[0];
+    }
+  }
+
+  document.getElementById("Full house").value = result;
 }
 
 /*Small straight*/
@@ -210,7 +270,11 @@ function fillYatzy(){
 
 fillSingles();
 fillOnePair();
-fillChance();
-fillYatzy();
+fillTwoPairs();
+fillThreeSame();
+fillFourSame();
+fillFullHouse();
 fillSmallStraight();
 fillLargeStraight();
+fillChance();
+fillYatzy();
