@@ -149,6 +149,7 @@ function resetGame(){
     rollButton.disabled = false;
 }
 
+//New game confirmation box
 function newGameConfimation(){
   let total = document.getElementById("Total").value;
   if (confirm("Game over, you got " + total + " points. Do you want to play again?") == true){
