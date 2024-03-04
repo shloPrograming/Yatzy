@@ -34,6 +34,10 @@ function buttonRoll(){
     document.getElementById("turn").innerText = "Turn " + turn;
     if (turn == 3){
         rollButton.disabled = true;
+        for (let i = 0; i < dice.length; i++) {
+          dice[i].style.borderColor = "black";
+          diceHeld[i] = false;
+        }
     }
 }
 
