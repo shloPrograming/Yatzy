@@ -1,10 +1,8 @@
 let diceHeld = [false, false, false, false, false];
 let diceValues = [0, 0, 0, 0, 0];
 let turn = 0;
-let singlesSum = 0;
-let combosSum = 0;
-
-let singleSum = 0;
+let points = 0;
+let Bonus = 0;
 
 let rollButton = document.getElementById("rollButton");
 
@@ -75,7 +73,6 @@ function updateDice(){
 }
 
 let scores = document.getElementById("2").querySelectorAll("input");
-console.log(scores.length);
 
 // selecting and deselecting fields, use the color 
 for (let field of scores){
@@ -101,6 +98,7 @@ function lockChoice(){
         if (field.style.backgroundColor == "lightblue"){
             field.style.backgroundColor = "white";
             field.disabled = true;
+            points += parseInt(field.value);
             turn = 0;
         }
     }
@@ -372,21 +370,26 @@ function updateScores(){
   fillLargeStraight();
   fillChance();
   fillYatzy();
+  updateSinglesSum();
+  updateTotal();
 }
 
 function updateSinglesSum(){
-  let haha = 0;
-  singlesSum += haha;
-  document.getElementById("Sum").value = singlesSum;
-  if (singlesSum >= 63){
-    fillBonus();
+  let singleSum = 0;
+  let singles = document.getElementById("2").querySelectorAll("-s");
+  for (let field of singles){
+    if (field.disabled == true){
+      singleSum += field.value;
+    }
+  }
+
+  document.getElementById("Sum").value = singleSum;
+  if (singleSum >= 63){
+    Bonus = 50;
+    document.getElementById("Bonus").value = 50;
   }
 }
 
-function fillBonus(){
-  document.getElementById("Bonus").value = 50;
-}
-
 function updateTotal(){
-  document.getElementById("Total").value = singlesSum + combosSum;
+  document.getElementById("Total").value = points + Bonus;
 }
