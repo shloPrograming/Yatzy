@@ -26,18 +26,22 @@ for (let i = 0; i < dice.length; i++){
 }
 
 function buttonRoll(){
-    lockChoice();
-    rollDice();
-    updateDice();
-    updateScores();
-    turn++;
-    document.getElementById("turn").innerText = "Turn " + turn;
-    if (turn == 3){
-        rollButton.disabled = true;
-        for (let i = 0; i < dice.length; i++) {
-          dice[i].style.borderColor = "black";
-          diceHeld[i] = false;
-        }
+  if (gameOver()){
+    newGameConfimation();
+    return;
+  }
+  lockChoice();
+  rollDice();
+  updateDice();
+  updateScores();
+  turn++;
+  document.getElementById("turn").innerText = "Turn " + turn;
+  if (turn == 3){
+      rollButton.disabled = true;
+      for (let i = 0; i < dice.length; i++) {
+        dice[i].style.borderColor = "black";
+        diceHeld[i] = false;
+      }
     }
 }
 
@@ -126,6 +130,12 @@ function resetGame(){
     turn = 0;
     rollButton.disabled = false;
 }
+function newGameConfimation(){
+  let total = document.getElementById("Total").value;
+  if (confirm("Game over, you got" + total + " points. Do you want to play again?") == true){
+    resetGame();
+  }
+}
 
 function gameOver(){
     for (let field of scores){
@@ -133,6 +143,7 @@ function gameOver(){
             return false;
         }
     }
+    console.log("Game over");
     return true;
 }
 
