@@ -26,18 +26,22 @@ for (let i = 0; i < dice.length; i++){
 }
 
 function buttonRoll(){
-    lockChoice();
-    rollDice();
-    updateDice();
-    updateScores();
-    turn++;
-    document.getElementById("turn").innerText = "Turn " + turn;
-    if (turn == 3){
+  if (gameOver()){
+    newGameConfimation();
+    return;
+  }
+  lockChoice();
+  rollDice();
+  updateDice();
+  updateScores();
+  turn++;
+  document.getElementById("turn").innerText = "Turn " + turn;
+  if (turn == 3){
       rollButton.disabled = true;
-        for (let i = 0; i < dice.length; i++) {
-          dice[i].style.borderColor = "black";
-          diceHeld[i] = false;
-        }
+      for (let i = 0; i < dice.length; i++) {
+        dice[i].style.borderColor = "black";
+        diceHeld[i] = false;
+      }
     }
 }
 
@@ -110,10 +114,14 @@ function lockChoice(){
 function resetGame(){
     for (let field of scores){
         field.style.backgroundColor = "white";
+        field.disabled = false;
+        field.value = "";
     }
     
     for (let i = 0; i < dice.length; i++){
+        diceValues[i] = 0;
         diceHeld[i] = false;
+        dice[i].style.borderColor = "black"
     }
 
     dice[0].src = "dice-six-faces-one.png";
@@ -123,19 +131,25 @@ function resetGame(){
     dice[4].src = "dice-six-faces-five.png";
 
     turn = 0;
+    points = 0;
+    Bonus = 0;
     rollButton.disabled = false;
+}
+function newGameConfimation(){
+  let total = document.getElementById("Total").value;
+  if (confirm("Game over, you got " + total + " points. Do you want to play again?") == true){
+    resetGame();
+  }
 }
 
 function gameOver(){
     for (let field of scores){
-        if (field.style.backgroundColor != "lightblue"){
+        if (field.disabled == false){
             return false;
         }
     }
     return true;
 }
-
-let testArray = [5,5,6,6,3];
 
 
 /*Fill 1-s, 2-s, 3-s, 4-s, 5-s, 6-s fields*/
