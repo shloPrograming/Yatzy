@@ -18,8 +18,11 @@ for (let i = 0; i < dice.length; i++){
         if (turn != 0){
             diceHeld[i] = !diceHeld[i];
         }
-if (diceHeld[i]){
-          
+        if (diceHeld[i]){
+          dice[i].style.borderColor = "red";
+        }
+        else {
+          dice[i].style.borderColor = "black"
         }
     });
 }
