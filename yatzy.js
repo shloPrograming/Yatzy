@@ -4,6 +4,8 @@ let turn = 0;
 let singlesSum = 0;
 let combosSum = 0;
 
+let singleSum = 0;
+
 let rollButton = document.getElementById("rollButton");
 
 rollButton.onclick = () => buttonRoll();
@@ -23,6 +25,7 @@ for (let i = 0; i < dice.length; i++){
 }
 
 function buttonRoll(){
+    lockChoice();
     rollDice();
     updateDice();
     updateScores();
@@ -72,22 +75,34 @@ function updateDice(){
 
 let scores = document.getElementById("2").querySelectorAll("input");
 console.log(scores.length);
+
+// selecting and deselecting fields, use the color 
 for (let field of scores){
     field.addEventListener("click", function(){
         if (turn != 0){
-            field.style.backgroundColor = "lightblue";
-            turn = 0;
-            rollButton.disabled = false;
-
-            if (gameOver()){
-                if (confirm("Play again?")){
-                    resetGame();
-                }
+          if (field.style.backgroundColor != "lightblue"){
+            for (let otherField of scores){
+              otherField.style.backgroundColor = "white";
             }
+            field.style.backgroundColor = "lightblue";
+            rollButton.disabled = false;
+          }
+          else{
+            field.style.backgroundColor = "white";
+            rollButton.disabled = true;
+          }
         }
 });
 }
 
+function lockChoice(){
+    for (let field of scores){
+        if (field.style.backgroundColor == "lightblue"){
+            field.style.backgroundColor = "white";
+            field.disabled = true;
+        }
+    }
+}
 
 function resetGame(){
     for (let field of scores){
@@ -161,6 +176,9 @@ function fillSingles() {
 
 /*One pair*/
 function fillOnePair(){
+  let field = document.getElementById("One pair");
+  if (field.disabled == true){return;}
+  
   let bestPair = 0;
   for (let i = diceValues.length - 1; i >= 1; i--) {
     for (let j = i - 1; j >= 0; j--) {
@@ -170,12 +188,15 @@ function fillOnePair(){
     }
   
   }
-  let field = document.getElementById("One pair");
+
   field.value = bestPair;
 }
 
 /*Two pairs*/
 function fillTwoPairs(){
+  let field = document.getElementById("Two pairs");
+  if (field.disabled == true){return;}
+
   let kopi = [...diceValues];
   kopi.sort();
   let result = 0;
@@ -190,11 +211,14 @@ function fillTwoPairs(){
     result = 2 * kopi[0] + 2 * kopi[3];
   }
 
-  document.getElementById("Two pairs").value = result;
+  field.value = result;
 }
 
 /*Three same*/
 function fillThreeSame(){
+  let field = document.getElementById("Three same");
+  if (field.disabled == true){return;}
+
   let kopi = [...diceValues];
   kopi.sort();
   let result = 0;
@@ -208,11 +232,14 @@ function fillThreeSame(){
   else if (kopi[2] === kopi[3] && kopi[3] === kopi[4]){
     result = 3 * kopi[2];
   }
-  document.getElementById("Three same").value = result;
+  field.value = result;
 }
 
 /*Four same*/
 function fillFourSame(){
+  let field = document.getElementById("Four same");
+  if (field.disabled == true){return;}
+
   let kopi = [...diceValues];
   kopi.sort();
   let result = 0;
@@ -231,11 +258,14 @@ function fillFourSame(){
       }
     }
   }
-  document.getElementById("Four same").value = result;
+  field.value = result;
 }
 
 /*Full house*/
 function fillFullHouse(){
+  let field = document.getElementById("Full house");
+  if (field.disabled == true){return;}
+
   let kopi = [...diceValues];
   kopi.sort();
   let result = 0;
@@ -251,11 +281,13 @@ function fillFullHouse(){
     }
   }
 
-  document.getElementById("Full house").value = result;
+  field.value = result;
 }
 
 /*Small straight*/
 function fillSmallStraight(){
+  let field = document.getElementById("Small straight");
+  if (field.disabled == true){return;}
   let result = 0;
   let kopi = [...diceValues];
   kopi.sort();
@@ -270,11 +302,13 @@ function fillSmallStraight(){
       }
     }
   }
-  document.getElementById("Small straight").value = result;
+  field.value = result;
 }
 
 /*Large straight*/
 function fillLargeStraight(){
+  let field = document.getElementById("Large straight");
+  if (field.disabled == true){return;}
   let result = 0;
   let kopi = [...diceValues];
   kopi.sort();
@@ -289,7 +323,7 @@ function fillLargeStraight(){
       }
     }
   }
-  document.getElementById("Large straight").value = result;
+  field.value = result;
 }
 
 /*Chance*/
@@ -317,7 +351,6 @@ function fillYatzy(){
   if(isYatzy){
     result = 50;
   }
-
   document.getElementById("Yatzy").value = result;
 }
 
