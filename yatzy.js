@@ -63,7 +63,52 @@ function updateDice(){
     }
 }
 
+let scores = document.getElementById("2").querySelectorAll("input");
+console.log(scores.length);
+for (let field of scores){
+    field.addEventListener("click", function(){
+        if (turn != 0){
+            field.style.backgroundColor = "lightblue";
+            turn = 0;
+            rollButton.disabled = false;
 
+            if (gameOver()){
+                if (confirm("Play again?")){
+                    resetGame();
+                }
+            }
+        }
+});
+}
+
+
+function resetGame(){
+    for (let field of scores){
+        field.style.backgroundColor = "white";
+    }
+    
+    for (let i = 0; i < dice.length; i++){
+        diceHeld[i] = false;
+    }
+
+    dice[0].src = "dice-six-faces-one.png";
+    dice[1].src = "dice-six-faces-two.png";
+    dice[2].src = "dice-six-faces-three.png";
+    dice[3].src = "dice-six-faces-four.png";
+    dice[4].src = "dice-six-faces-five.png";
+
+    turn = 0;
+    rollButton.disabled = false;
+}
+
+function gameOver(){
+    for (let field of scores){
+        if (field.style.backgroundColor != "lightblue"){
+            return false;
+        }
+    }
+    return true;
+}
 
 let testArray = [6,4,2,5,3];
 let sumArray = [0,0,0,0,0,0];
