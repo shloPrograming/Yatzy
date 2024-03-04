@@ -33,7 +33,7 @@ function buttonRoll(){
     turn++;
     document.getElementById("turn").innerText = "Turn " + turn;
     if (turn == 3){
-        rollButton.disabled = true;
+      rollButton.disabled = true;
         for (let i = 0; i < dice.length; i++) {
           dice[i].style.borderColor = "black";
           diceHeld[i] = false;
@@ -91,7 +91,6 @@ for (let field of scores){
           }
           else{
             field.style.backgroundColor = "white";
-            rollButton.disabled = true;
           }
         }
 });
