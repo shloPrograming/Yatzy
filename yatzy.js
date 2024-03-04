@@ -133,6 +133,11 @@ function resetGame(){
     turn = 0;
     points = 0;
     Bonus = 0;
+    document.getElementById("turn").innerText = "Turn " + turn;
+    document.getElementById("Sum").value = "";
+    document.getElementById("Bonus").value = "";
+    document.getElementById("Total").value = "";
+
     rollButton.disabled = false;
 }
 function newGameConfimation(){
