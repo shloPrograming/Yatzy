@@ -109,6 +109,10 @@ function lockChoice(){
             field.style.backgroundColor = "white";
             field.disabled = true;
             points += parseInt(field.value);
+            for (let i = 0; i < dice.length; i++) {
+              dice[i].style.borderColor = "black";
+              diceHeld[i] = false;
+            }
             turn = 0;
         }
     }
