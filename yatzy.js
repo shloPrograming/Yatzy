@@ -30,7 +30,7 @@ function buttonRoll(){
     updateDice();
     updateScores();
     turn++;
-  document.getElementById("turn").innerText = "Turn " + turn;
+    document.getElementById("turn").innerText = "Turn " + turn;
     if (turn == 3){
         rollButton.disabled = true;
     }
@@ -98,6 +98,7 @@ function lockChoice(){
         if (field.style.backgroundColor == "lightblue"){
             field.style.backgroundColor = "white";
             field.disabled = true;
+            turn = 0;
         }
     }
 }
@@ -340,7 +341,7 @@ function fillChance(){
 function fillYatzy(){
   let field = document.getElementById("Yatzy");
   if (field.disabled == true){return;}
-  
+
   let result = 0;
   let isYatzy = true;
   let i = 0;
