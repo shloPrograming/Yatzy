@@ -376,10 +376,10 @@ function updateScores(){
 
 function updateSinglesSum(){
   let singleSum = 0;
-  let singles = document.getElementById("2").querySelectorAll("-s");
+  let singles = document.getElementById("2").querySelectorAll("[id$='-s']");
   for (let field of singles){
     if (field.disabled == true){
-      singleSum += field.value;
+      singleSum += parseInt(field.value);
     }
   }
 
