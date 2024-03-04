@@ -18,7 +18,7 @@ for (let i = 0; i < dice.length; i++){
         if (turn != 0){
             diceHeld[i] = !diceHeld[i];
         }
-        if (diceHeld[i]){
+if (diceHeld[i]){
           
         }
     });
@@ -29,10 +29,8 @@ function buttonRoll(){
     rollDice();
     updateDice();
     updateScores();
-    console.log(diceValues);
-    console.log(diceHeld);
     turn++;
-    document.getElementById("turn").innerText = "Turn " + turn;
+document.getElementById("turn").innerText = "Turn " + turn;
     if (turn == 3){
         rollButton.disabled = true;
     }
