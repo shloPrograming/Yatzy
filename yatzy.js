@@ -20,6 +20,7 @@ for (let i = 0; i < dice.length; i++){
 function buttonRoll(){
     rollDice();
     updateDice();
+    updateScores();
     console.log(diceValues);
     console.log(diceHeld);
     turn++;
@@ -66,11 +67,12 @@ function updateDice(){
 
 
 let testArray = [5,5,6,6,3];
-let sumArray = [0,0,0,0,0,0];
+
 
 /*Fill 1-s, 2-s, 3-s, 4-s, 5-s, 6-s fields*/
 function fillSingles() {
-  for (const no of testArray) {
+  let sumArray = [0,0,0,0,0,0];
+  for (const no of diceValues) {
     if(no == 1){
       sumArray[0]++;
     }
@@ -109,10 +111,10 @@ function fillSingles() {
 /*One pair*/
 function fillOnePair(){
   let bestPair = 0;
-  for (let i = testArray.length - 1; i >= 1; i--) {
+  for (let i = diceValues.length - 1; i >= 1; i--) {
     for (let j = i - 1; j >= 0; j--) {
-      if (testArray[i] === testArray[j] && bestPair < (2 * testArray[i])){
-        bestPair = (2 * testArray[i]);
+      if (diceValues[i] === diceValues[j] && bestPair < (2 * diceValues[i])){
+        bestPair = (2 * diceValues[i]);
       }
     }
   
@@ -123,7 +125,7 @@ function fillOnePair(){
 
 /*Two pairs*/
 function fillTwoPairs(){
-  let kopi = [...testArray];
+  let kopi = [...diceValues];
   kopi.sort();
   let result = 0;
 
@@ -142,7 +144,7 @@ function fillTwoPairs(){
 
 /*Three same*/
 function fillThreeSame(){
-  let kopi = [...testArray];
+  let kopi = [...diceValues];
   kopi.sort();
   let result = 0;
 
@@ -160,7 +162,7 @@ function fillThreeSame(){
 
 /*Four same*/
 function fillFourSame(){
-  let kopi = [...testArray];
+  let kopi = [...diceValues];
   kopi.sort();
   let result = 0;
 
@@ -183,7 +185,7 @@ function fillFourSame(){
 
 /*Full house*/
 function fillFullHouse(){
-  let kopi = [...testArray];
+  let kopi = [...diceValues];
   kopi.sort();
   let result = 0;
 
@@ -204,7 +206,7 @@ function fillFullHouse(){
 /*Small straight*/
 function fillSmallStraight(){
   let result = 0;
-  let kopi = [...testArray];
+  let kopi = [...diceValues];
   kopi.sort();
   if (kopi[0] === 1){
     if (kopi[1] === 2){
@@ -223,7 +225,7 @@ function fillSmallStraight(){
 /*Large straight*/
 function fillLargeStraight(){
   let result = 0;
-  let kopi = [...testArray];
+  let kopi = [...diceValues];
   kopi.sort();
   if (kopi[0] === 2){
     if (kopi[1] === 3){
@@ -242,7 +244,7 @@ function fillLargeStraight(){
 /*Chance*/
 function fillChance(){
   let sum = 0;
-  for (const no of testArray) {
+  for (const no of diceValues) {
     sum += no
   }
 
@@ -254,27 +256,30 @@ function fillYatzy(){
   let result = 0;
   let isYatzy = true;
   let i = 0;
-  while (isYatzy && (i < (testArray.length - 1))){
-    if (testArray[i] != testArray[i+1]){
+  while (isYatzy && (i < (diceValues.length - 1))){
+    if (diceValues[i] != diceValues[i+1]){
       isYatzy = false;
     }
     i++;
   }
 
   if(isYatzy){
-    result = 5 * testArray[0];
+    result = 5 * diceValues[0];
   }
 
   document.getElementById("Yatzy").value = result;
 }
 
-fillSingles();
-fillOnePair();
-fillTwoPairs();
-fillThreeSame();
-fillFourSame();
-fillFullHouse();
-fillSmallStraight();
-fillLargeStraight();
-fillChance();
-fillYatzy();
+
+function updateScores(){
+  fillSingles();
+  fillOnePair();
+  fillTwoPairs();
+  fillThreeSame();
+  fillFourSame();
+  fillFullHouse();
+  fillSmallStraight();
+  fillLargeStraight();
+  fillChance();
+  fillYatzy();
+}
