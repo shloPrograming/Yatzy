@@ -1,6 +1,8 @@
 let diceHeld = [false, false, false, false, false];
 let diceValues = [0, 0, 0, 0, 0];
 let turn = 0;
+let singlesSum = 0;
+let combosSum = 0;
 
 let rollButton = document.getElementById("rollButton");
 
@@ -14,6 +16,9 @@ for (let i = 0; i < dice.length; i++){
         if (turn != 0){
             diceHeld[i] = !diceHeld[i];
         }
+        if (diceHeld[i]){
+          
+        }
     });
 }
 
@@ -24,6 +29,7 @@ function buttonRoll(){
     console.log(diceValues);
     console.log(diceHeld);
     turn++;
+    document.getElementById("turn").innerText = "Turn " + turn;
     if (turn == 3){
         rollButton.disabled = true;
     }
@@ -309,12 +315,11 @@ function fillYatzy(){
   }
 
   if(isYatzy){
-    result = 5 * diceValues[0];
+    result = 50;
   }
 
   document.getElementById("Yatzy").value = result;
 }
-
 
 function updateScores(){
   fillSingles();
@@ -327,4 +332,21 @@ function updateScores(){
   fillLargeStraight();
   fillChance();
   fillYatzy();
+}
+
+function updateSinglesSum(){
+  let haha = 0;
+  singlesSum += haha;
+  document.getElementById("Sum").value = singlesSum;
+  if (singlesSum >= 63){
+    fillBonus();
+  }
+}
+
+function fillBonus(){
+  document.getElementById("Bonus").value = 50;
+}
+
+function updateTotal(){
+  document.getElementById("Total").value = singlesSum + combosSum;
 }
