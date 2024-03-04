@@ -1,16 +1,18 @@
+//Variables used in the various functions
 let diceHeld = [false, false, false, false, false];
 let diceValues = [0, 0, 0, 0, 0];
 let turn = 0;
 let points = 0;
 let Bonus = 0;
 
-let rollButton = document.getElementById("rollButton");
 
+//Roll button for dice
+let rollButton = document.getElementById("rollButton");
 rollButton.onclick = () => buttonRoll();
 
+//Dice event listeners
 let dice = [document.getElementById('die1'), document.getElementById('die2'), document.getElementById('die3'), 
 document.getElementById('die4'), document.getElementById('die5')];
-
 for (let i = 0; i < dice.length; i++){
     dice[i].addEventListener("click", function(){
         if (turn != 0){
@@ -25,6 +27,26 @@ for (let i = 0; i < dice.length; i++){
     });
 }
 
+// selecting and deselecting fields in the DOM
+let scores = document.getElementById("2").querySelectorAll("input");
+for (let field of scores){
+  field.addEventListener("click", function(){
+      if (turn != 0){
+        if (field.style.backgroundColor != "lightblue"){
+          for (let otherField of scores){
+            otherField.style.backgroundColor = "white";
+          }
+          field.style.backgroundColor = "lightblue";
+          rollButton.disabled = false;
+        }
+        else{
+          field.style.backgroundColor = "white";
+        }
+      }
+});
+}
+
+//Various functions used in the game
 function buttonRoll(){
   if (gameOver()){
     newGameConfimation();
@@ -44,7 +66,7 @@ function buttonRoll(){
       }
     }
 }
-
+//Rolls the dice
 function rollDice(){
     for (i = 0; i < dice.length; i++){
         if (!diceHeld[i]){
@@ -52,7 +74,7 @@ function rollDice(){
         }
     }
 }
-
+//Updates the dice images
 function updateDice(){
     for (i = 0; i < dice.length; i++){
         if (!diceHeld[i]){
@@ -80,26 +102,7 @@ function updateDice(){
     }
 }
 
-let scores = document.getElementById("2").querySelectorAll("input");
-
-// selecting and deselecting fields, use the color 
-for (let field of scores){
-    field.addEventListener("click", function(){
-        if (turn != 0){
-          if (field.style.backgroundColor != "lightblue"){
-            for (let otherField of scores){
-              otherField.style.backgroundColor = "white";
-            }
-            field.style.backgroundColor = "lightblue";
-            rollButton.disabled = false;
-          }
-          else{
-            field.style.backgroundColor = "white";
-          }
-        }
-});
-}
-
+//Locks the choice of a field, called when the roll button is pressed
 function lockChoice(){
     for (let field of scores){
         if (field.style.backgroundColor == "lightblue"){
@@ -111,6 +114,7 @@ function lockChoice(){
     }
 }
 
+//This is the old resetGame function, left for posterity. As a reminder of how not to write code.
 function resetGame(){
     for (let field of scores){
         field.style.backgroundColor = "white";
@@ -140,13 +144,15 @@ function resetGame(){
 
     rollButton.disabled = false;
 }
+
 function newGameConfimation(){
   let total = document.getElementById("Total").value;
   if (confirm("Game over, you got " + total + " points. Do you want to play again?") == true){
-    resetGame();
+    location.reload();
   }
 }
 
+//Checks if the game is over
 function gameOver(){
     for (let field of scores){
         if (field.disabled == false){
@@ -380,7 +386,7 @@ function fillYatzy(){
   }
   field.value = result;
 }
-
+//Updates the scores, total and bonus feilds
 function updateScores(){
   fillSingles();
   fillOnePair();
@@ -395,7 +401,7 @@ function updateScores(){
   updateSinglesSum();
   updateTotal();
 }
-
+//Updates the sum of the singles fields
 function updateSinglesSum(){
   let singleSum = 0;
   let singles = document.getElementById("2").querySelectorAll("[id$='-s']");
@@ -411,7 +417,7 @@ function updateSinglesSum(){
     document.getElementById("Bonus").value = 50;
   }
 }
-
+//Updates the total field
 function updateTotal(){
   document.getElementById("Total").value = points + Bonus;
 }
