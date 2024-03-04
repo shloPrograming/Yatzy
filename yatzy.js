@@ -33,7 +33,7 @@ function buttonRoll(){
     updateDice();
     updateScores();
     turn++;
-document.getElementById("turn").innerText = "Turn " + turn;
+    document.getElementById("turn").innerText = "Turn " + turn;
     if (turn == 3){
         rollButton.disabled = true;
     }
@@ -101,6 +101,7 @@ function lockChoice(){
         if (field.style.backgroundColor == "lightblue"){
             field.style.backgroundColor = "white";
             field.disabled = true;
+            turn = 0;
         }
     }
 }
@@ -167,12 +168,12 @@ function fillSingles() {
   let five = document.getElementById("5-s");
   let six = document.getElementById("6-s");
 
-  one.value = sumArray[0];
-  two.value = sumArray[1];
-  three.value = sumArray[2];
-  four.value = sumArray[3];
-  five.value = sumArray[4];
-  six.value = sumArray[5];
+  if (one.disabled == false) one.value = sumArray[0];
+  if (two.disabled == false) two.value = sumArray[1];
+  if (three.disabled == false) three.value = sumArray[2];
+  if (four.disabled == false) four.value = sumArray[3];
+  if (five.disabled == false) five.value = sumArray[4];
+  if (six.disabled == false) six.value = sumArray[5];
 }
 
 /*One pair*/
@@ -329,16 +330,21 @@ function fillLargeStraight(){
 
 /*Chance*/
 function fillChance(){
+  let field = document.getElementById("Chance");
+  if (field.disabled == true){return;}
   let sum = 0;
   for (const no of diceValues) {
     sum += no
   }
 
-  document.getElementById("Chance").value = sum
+  field.value = sum
 }
 
 /*Yatzy*/
 function fillYatzy(){
+  let field = document.getElementById("Yatzy");
+  if (field.disabled == true){return;}
+
   let result = 0;
   let isYatzy = true;
   let i = 0;
@@ -352,7 +358,7 @@ function fillYatzy(){
   if(isYatzy){
     result = 50;
   }
-  document.getElementById("Yatzy").value = result;
+  field.value = result;
 }
 
 function updateScores(){
